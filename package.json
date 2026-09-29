@@ -1,0 +1,27 @@
+{
+  "name": "projeto-cine-api-aeo",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/mateusbohntb-ai/Projeto-Cine-Api-AEO#readme",
+  "bugs": {
+    "url": "https://github.com/mateusbohntb-ai/Projeto-Cine-Api-AEO/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateusbohntb-ai/Projeto-Cine-Api-AEO.git"
+  },
+  "license": "ISC",
+  "author": "Equipe-do-Bora-bill",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.4",
+    "sequelize": "^6.37.8"
+  }
+}
