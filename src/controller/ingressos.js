@@ -14,7 +14,7 @@ class ControllerIngresso {
             })
         }
     }
-
+//.
 // letras maiusculas no nome das func
     async Listar(req, res){
         try {
