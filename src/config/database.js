@@ -8,7 +8,6 @@ class Database {
 
 
     init() {
-
         this.db = new Sequelize({
             database: "Cinema",
             host: "localhost",
@@ -20,4 +19,4 @@ class Database {
     }
 }
 
-export default new Database
+export default new Database()
