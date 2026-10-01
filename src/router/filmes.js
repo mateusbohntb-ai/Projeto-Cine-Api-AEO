@@ -1,6 +1,6 @@
 import express from "express"
 import ControllerFilmes from "../controller/filmes.js"
-
+import authMiddleware from "../middleware/auth.js"
 
 const router = express.Router()
 
