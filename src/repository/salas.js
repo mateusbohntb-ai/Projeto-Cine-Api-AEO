@@ -24,7 +24,7 @@ class RepositorySalas {
             throw new Error("sala não encontrado!")
         }
 
-        salaAlterar.titulo = filme
+        salaAlterar.filme = filme
         salaAlterar.horario = horario
         salaAlterar.dia = dia
         salaAlterar.disponivel = disponivel

@@ -10,7 +10,6 @@ class Salas {
             },
             filme: {
                 type: database.db.Sequelize.STRING,
-                unique: true,
             },
             horario: {
                 type: database.db.Sequelize.STRING,
