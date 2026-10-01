@@ -16,11 +16,11 @@ class ControllerIngresso {
     }
 //.
 // letras maiusculas no nome das func
-    async Listar(req, res){
+    async Buscar(req, res){
         try {
             console.log(req.session)
 
-            const ingressos = await ServiceIngresso.Listar()
+            const ingressos = await ServiceIngresso.Buscar()
 
             res.status(200).send({ mensage: ingressos })
         } catch (error) {
@@ -30,11 +30,11 @@ class ControllerIngresso {
         }
     }
 
-    async Buscar(req, res){
+    async Detalhe(req, res){
         try {
             const id = req.params.id
 
-            const ingresso = await ServiceIngresso.Buscar(id)
+            const ingresso = await ServiceIngresso.Detalhe(id)
 
             res.status(200).send({ mensage: ingresso })
         } catch (error) {

@@ -5,9 +5,9 @@ import ControllerIngresso from "../controller/ingressos.js"
 const router = express.Router()
 
     router.post("/criar", ControllerIngresso.Criar)
-    router.get("/listar", ControllerIngresso.Listar)
+    router.get("/buscar", ControllerIngresso.Buscar)
     //router.get("/listar", authMiddleware, ControllerIngresso.Listar)
-    router.get("/buscar/:id", ControllerIngresso.Buscar)
+    router.get("/detalhe/:id", ControllerIngresso.Detalhe)
     router.put("/atualizar/:id", ControllerIngresso.Atualizar)
     router.delete("/deletar/:id", ControllerIngresso.Deletar)
 

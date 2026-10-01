@@ -11,11 +11,11 @@ class ServiceIngresso {
         return ingresso
     }
 
-    async Listar(){
+    async Buscar(){
         return RepositoryIngresso.find()
     }
 
-    async Buscar(id){
+    async Detalhe(id){
         if(!id) {
             throw new Error("Favor informar o ID")
         }

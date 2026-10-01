@@ -6,15 +6,13 @@ class ingresso {
             id: {
                 type: database.db.Sequelize.INTEGER,
                 primaryKey: true,
-                autoIncremenet: true
+                autoIncrement: true
             },
             filme: {
                 type: database.db.Sequelize.STRING,
-                unique: true
             },
             data: {
                 type: database.db.Sequelize.INTEGER,
-                unique: true
             },
             horario: {
                 type: database.db.Sequelize.STRING,

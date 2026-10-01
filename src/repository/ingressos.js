@@ -9,7 +9,7 @@ class RepositoryIngresso {
     }
 
     async find() {
-        const ingressos = await ingressos.findAll()
+        const ingressos = await ingresso.findAll()
 
         return ingressos
     }
