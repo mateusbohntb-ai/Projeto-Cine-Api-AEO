@@ -1,4 +1,4 @@
-import sessao from '../model/sessao.js'
+import sessao from '../model/sessoes.js'
 
 // INSERT INTO sessao(marca, ano) VALUES ("FIAT", 1998)
 class RepositorySessao {

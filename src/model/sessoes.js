@@ -13,7 +13,6 @@ class Sessao {
             },
             sala: {
                 type: database.db.Sequelize.INTEGER,
-                unique: true
             },
             dia: {
                 type: database.db.Sequelize.INTEGER,
