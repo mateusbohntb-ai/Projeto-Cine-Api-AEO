@@ -15,7 +15,7 @@ class ControllerFilmes {
     async Detalhe(req, res) {
         try {
             const id = req.params.id
-            const filmes = await ServiceFilmes.BuscarUm(id)
+            const filmes = await ServiceFilmes.Detalhe(id)
             
             res.status(200).send({ filmes })
         } catch (error) {

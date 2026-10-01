@@ -2,7 +2,7 @@ import database from "../config/database.js";
 
 class Salas {
     constructor() {
-        this.model = database.db.define("filmes", {
+        this.model = database.db.define("salas", {
             id: {
                 type: database.db.Sequelize.INTEGER,
                 primaryKey: true,
@@ -25,4 +25,4 @@ class Salas {
     }
 }
 
-export default new Salas.model()
+export default new Salas().model

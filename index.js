@@ -1,7 +1,5 @@
 import app from "./app.js"
-import database from "./config/database.js"
-
-
+import database from "./src/config/database.js"
 
 database.db
 .sync({force: false})

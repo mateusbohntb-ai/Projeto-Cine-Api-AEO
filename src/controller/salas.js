@@ -15,7 +15,7 @@ class ControllerSalas {
     async Detalhe(req, res) {
         try {
             const id = req.params.id
-            const salas = await ServiceSalas.BuscarUm(id)
+            const salas = await ServiceSalas.Detalhe(id)
             
             res.status(200).send({ salas })
         } catch (error) {

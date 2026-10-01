@@ -22,4 +22,4 @@ class Filmes {
     }
 }
 
-export default new Filmes.model()
+export default new Filmes().model
