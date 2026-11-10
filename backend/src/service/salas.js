@@ -21,7 +21,7 @@ class ServiceSalas {
     }
 
     async Criar(filme, horario, dia, disponivel) {
-        if (!filme || !horario || !dia || !disponivel === undefined) {
+        if (!filme || !horario || !dia || typeof disponivel !== "boolean") {
             throw new Error("Favor informar todos os dados")
         }
 
@@ -30,7 +30,7 @@ class ServiceSalas {
     }
 
     async Alterar(id, filme, horario, dia, disponivel) {
-        if (!id || !filme || !horario || !dia || !disponivel === undefined) {
+        if (!id || !filme || !horario || !dia || typeof disponivel !== "boolean") {
             throw new Error("Favor informar os dados");
         }
 

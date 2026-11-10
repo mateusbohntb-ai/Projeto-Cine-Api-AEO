@@ -23,7 +23,7 @@ class RepositoryAtendente {
 
     
      async   FindByEmail(email){
-         const dados = atendente.findOne({ where: { email } })
+         const dados = await atendente.findOne({ where: { email } })
          return dados
          // correção, o return estava vazio, corrigido para return dados
     }
@@ -45,7 +45,9 @@ class RepositoryAtendente {
             throw new Error("Carro não encontrado");
         }
         update.email = email
-        update.senha = senha
+        if (senha) {
+            update.senha = senha
+        }
         update.telefone = telefone
         update.setor = setor
 

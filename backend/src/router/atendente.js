@@ -16,7 +16,7 @@ router.get("/Buscar", ControllerAtndente.Buscar)
 router.get("/Detalhes/:id", ControllerAtndente.Detalhe)
 
 //Login do Funcionario 
-router.post("/Login",authMiddleware,  ControllerAtndente.Login)
+router.post("/Login", ControllerAtndente.Login)
 
 //Cadastrar um funcionario 
 router.post("/Criar", ControllerAtndente.Criar)
