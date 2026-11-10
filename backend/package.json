@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch index.js",
-    "test": "node --test \"tests/supertest/**/*.test.js\""
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
