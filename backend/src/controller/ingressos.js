@@ -18,8 +18,6 @@ class ControllerIngresso {
 // letras maiusculas no nome das func
     async Buscar(req, res){
         try {
-            console.log(req.session)
-
             const ingressos = await ServiceIngresso.Buscar()
 
             res.status(200).send({ mensage: ingressos })

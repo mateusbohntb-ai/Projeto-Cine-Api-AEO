@@ -2,7 +2,7 @@ import RepositoryIngresso from '../repository/ingressos.js'
 
 class ServiceIngresso {
     async Criar(filme, data, horario, sala, disponivel){
-        if(!filme || !data || !horario || !sala || !disponivel) {
+        if (!filme || !data || !horario || !sala || typeof disponivel !== "boolean") {
             throw new Error("Favor informar todos os dados")
         }
 
@@ -29,12 +29,12 @@ class ServiceIngresso {
         return ingresso
     }
 
-    async Atualizar(filme, data, horario, sala, disponivel){
-        if (!filme || !data || !horario || !sala || !disponivel) {
+    async Atualizar(id, filme, data, horario, sala, disponivel){
+        if (!id || !filme || !data || !horario || !sala || typeof disponivel !== "boolean") {
             throw new Error("Favor informar todos os dados")
         }
 
-        const ingressoAtualizado = await RepositoryIngresso.Update(filme, data, horario, sala, disponivel)
+        const ingressoAtualizado = await RepositoryIngresso.Update(id, filme, data, horario, sala, disponivel)
 
         return ingressoAtualizado
     }

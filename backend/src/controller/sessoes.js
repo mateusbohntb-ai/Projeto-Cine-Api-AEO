@@ -4,7 +4,6 @@ class ControllerSessao {
     // Recebimento e a Saida das info
     async Buscar(req, res) {  
         try {
-            console.log(req.session)
             const sessoes = await ServiceSessao.Buscar()
             res.status(200).send({ mensagem: sessoes })
         } catch (error) {

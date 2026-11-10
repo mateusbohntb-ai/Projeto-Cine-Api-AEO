@@ -26,13 +26,13 @@ class ServiceAtendente {
         return buscaratendente
     }
   
- async    Login() {
+ async Login(email, senha) {
 
-            if(!email || !senha) {
+            if (!email || !senha) {
             throw new Error("Email ou senha inválido")
         }
 
-        const usuario = await RepositoryUsuario.FindByEmail(email)
+        const usuario = await RepositoryAtendente.FindByEmail(email)
 
         if(!usuario) {
             throw new Error("Email ou senha inválido")
@@ -44,9 +44,14 @@ class ServiceAtendente {
             throw new Error("Email ou senha inválido")
         }
 
+        const secret = process.env.JWT_SECRET
+        if (!secret) {
+            throw new Error("JWT_SECRET não configurado")
+        }
+
         return jwt.sign(
             { id: usuario.id, email },
-            segredo,
+            secret,
             { expiresIn: 60 * 60 }
         )
 
@@ -62,22 +67,20 @@ class ServiceAtendente {
      const senhaCriptografada = await bcrypt.hash(senha,12)
 
 
-        const novousuario = await RepositoryAtendente.Create(email, senhaCriptografada)
+        const novousuario = await RepositoryAtendente.Create(email, senhaCriptografada, telefone, setor)
         return { novousuario }
     }
 
 
   async  Alterar(id,email,senha,telefone,setor) {
-  if (!id ||!email || !senha|| !telefone|| !setor) {
+  if (!id || !email || !telefone || !setor) {
             throw new Error("Favor informar os dados");
         }
 
-             const senhaCriptografada =!senha//ternario 
-             ?undefined
-             : await bcrypt.hash(senha,12)
+      const senhaCriptografada = senha ? await bcrypt.hash(senha, 12) : undefined
 
 
-        const usuarioalterado = await RepositoryAtendente.Update(id, email, senhaCriptografada )
+      const usuarioalterado = await RepositoryAtendente.Update(id, email, senhaCriptografada, telefone, setor)
 
         return usuarioalterado
     }

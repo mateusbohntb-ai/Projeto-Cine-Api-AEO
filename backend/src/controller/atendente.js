@@ -13,7 +13,7 @@ class ControllerAtendente {
 
         } catch (error) {
             res.status(500).send({
-                mensagem: error.menssage
+                mensagem: error.message
             })
         }
     }
@@ -34,7 +34,7 @@ class ControllerAtendente {
 
         } catch (error) {
             res.status(500).send({
-                mensagem: error.mensage
+                mensagem: error.message
             })
         }
 
@@ -42,7 +42,7 @@ class ControllerAtendente {
     }
 
 
-    async Login() {
+    async Login(req, res) {
 
         try {
 
@@ -65,7 +65,7 @@ class ControllerAtendente {
         }
     }
 
-    async Criar() {
+    async Criar(req, res) {
 
         try {
 
@@ -85,10 +85,10 @@ class ControllerAtendente {
     }
 
 
-    async Alterar() {
+    async Alterar(req, res) {
         try {
             const { email, senha, telefone, setor } = req.body
-            const id = Number(req.session.id)
+            const id = Number(req.params.id)
 
             await ServiceAtendente.Alterar(id, email, senha, telefone, setor)
 
@@ -98,13 +98,13 @@ class ControllerAtendente {
 
         } catch (error) {
             res.status(500).send({
-                mensagem: error.menssage
+                mensagem: error.message
             })
         }
     }
 
 
-    async Deletar() {
+    async Deletar(req, res) {
 
         try {
 

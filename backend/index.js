@@ -1,11 +1,11 @@
 import express from "express"
+import database from "./src/config/database.js"
 
 import atendente from "./src/router/atendente.js"
 import filmes from "./src/router/filmes.js"
 import ingressos from "./src/router/ingressos.js"
 import sessoes from "./src/router/sessoes.js"
 import salas from "./src/router/salas.js"
-import database from "./src/config/database.js"
 
 const app = express()
 
@@ -29,4 +29,3 @@ database.db
   .catch((e) => {
     console.log(e)
   })
-export default app
