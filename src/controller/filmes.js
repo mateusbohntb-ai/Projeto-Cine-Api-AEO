@@ -5,7 +5,7 @@ class ControllerFilmes {
     async Buscar(_, res) {
         try {
             const filmes = await ServiceFilmes.Buscar()
-            
+
             res.status(200).send({ filmes })
         } catch (error) {
             res.status(500).send({ message: error.message })
@@ -16,7 +16,7 @@ class ControllerFilmes {
         try {
             const id = req.params.id
             const filmes = await ServiceFilmes.Detalhe(id)
-            
+
             res.status(200).send({ filmes })
         } catch (error) {
             res.status(500).send({ message: error.message })
@@ -27,7 +27,7 @@ class ControllerFilmes {
         try {
             const { titulo, horario, dia } = req.body
             await ServiceFilmes.Criar(titulo, horario, dia)
-            
+
             res.status(200).send({ message: "Cadastrado com sucesso" })
         } catch (error) {
             res.status(500).send({ message: error.message })
@@ -39,8 +39,8 @@ class ControllerFilmes {
             const id = req.params.id
             const { titulo, horario, dia } = req.body
             await ServiceFilmes.Alterar(id, titulo, horario, dia)
-            
-            res.status(200).send({ message: "Alterado com sucesso"  })
+
+            res.status(200).send({ message: "Alterado com sucesso" })
         } catch (error) {
             res.status(500).send({ message: error.message })
         }
@@ -50,8 +50,8 @@ class ControllerFilmes {
         try {
             const id = req.params.id
             await ServiceFilmes.Deletar(id)
-            
-            res.status(200).send({ message: "Deletado com sucesso"  })
+
+            res.status(200).send({ message: "Deletado com sucesso" })
         } catch (error) {
             res.status(500).send({ message: error.message })
         }

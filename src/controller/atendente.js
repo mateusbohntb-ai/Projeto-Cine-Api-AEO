@@ -3,13 +3,13 @@ import ServiceAtendente from "../service/atendente.js"
 
 class ControllerAtendente {
 
-   async Buscar( _ ,res ) {
-    
-             try {
-            const logico = await ServiceAtendente.Buscar()
-            res.status(200).send({ 
-                mensagem: logico
-             })
+    async Buscar(_, res) {
+
+        try {
+            const aternder = await ServiceAtendente.Buscar()
+            res.status(200).send({
+                mensagem: aternder
+            })
 
         } catch (error) {
             res.status(500).send({
@@ -18,19 +18,19 @@ class ControllerAtendente {
         }
     }
 
-    
 
 
-        async  Detalhe( req, res) {
-    
-            try {
+
+    async Detalhe(req, res) {
+
+        try {
 
             const id = req.params.id
-            const logico = await ServiceAtendente.Detalhe(id)
+            const aternder = await ServiceAtendente.Detalhe(id)
 
-          await  res.status(200).send({ 
-            mensagem: logico
-         })
+            await res.status(200).send({
+                mensagem: aternder
+            })
 
         } catch (error) {
             res.status(500).send({
@@ -42,36 +42,36 @@ class ControllerAtendente {
     }
 
 
- async  Login() {
+    async Login() {
 
         try {
-    
-    
-    const {email , senha } = req.body
-    
-    
-    const token = await ServiceAtendente.Login(email , senha)
-    
-    res.status(200).send({
-        token
-    })
-} catch (error) {
-    
-    res.status(500).send({
-        mensage: error.message
-    })
 
 
+            const { email, senha } = req.body
+
+
+            const token = await ServiceAtendente.Login(email, senha)
+
+            res.status(200).send({
+                token
+            })
+        } catch (error) {
+
+            res.status(500).send({
+                mensage: error.message
+            })
+
+
+        }
     }
- }
 
-  async  Criar() {
+    async Criar() {
 
-       try {
+        try {
 
-            const { email, senha ,telefone ,setor } = req.body
+            const { email, senha, telefone, setor } = req.body
 
-           await ServiceAtendente.Criar( email, senha,telefone ,setor)
+            await ServiceAtendente.Criar(email, senha, telefone, setor)
 
             res.status(201).send({
                 mensagem: "Cadastrado com sucesso"
@@ -85,16 +85,16 @@ class ControllerAtendente {
     }
 
 
-   async Alterar() {
-   try {
-             const { email, senha,telefone ,setor } = req.body
-              const id = Number(req.session.id)
+    async Alterar() {
+        try {
+            const { email, senha, telefone, setor } = req.body
+            const id = Number(req.session.id)
 
-            await ServiceAtendente.Alterar(id, email, senha,telefone ,setor)
-            
-            res.status(201).send({ 
+            await ServiceAtendente.Alterar(id, email, senha, telefone, setor)
+
+            res.status(201).send({
                 mensagem: "Alterado  com sucesso"
-             })
+            })
 
         } catch (error) {
             res.status(500).send({
@@ -104,13 +104,13 @@ class ControllerAtendente {
     }
 
 
-  async  Deletar() {
+    async Deletar() {
 
         try {
 
             const id = req.params.id
 
-         await ServiceAtendente.Deletar(id)
+            await ServiceAtendente.Deletar(id)
 
             res.status(204).send({
                 mensagem: "Deletado"

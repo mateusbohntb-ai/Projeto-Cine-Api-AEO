@@ -24,7 +24,8 @@ class RepositoryAtendente {
     
      async   FindByEmail(email){
          const dados = atendente.findOne({ where: { email } })
-         return 
+         return dados
+         // correção, o return estava vazio, corrigido para return dados
     }
 
 
