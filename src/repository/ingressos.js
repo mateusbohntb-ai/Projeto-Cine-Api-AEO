@@ -1,5 +1,5 @@
 import ingresso from "../model/ingressos.js"
-
+// IDENTAR O CODÍCO SFIT + ALT + F
 class RepositoryIngresso {
 
     async Create(filme, data, horario, sala, disponivel) {
@@ -22,27 +22,27 @@ class RepositoryIngresso {
 
     async Update(id, filme, data, horario, sala, disponivel) {
         const ingressoAlterar = await ingresso.findByPk(id)
-        
-        if(!ingressoAlterar){
+
+        if (!ingressoAlterar) {
             throw new Error("ingresso não encontrado")
+        }
+
+
+        ingressoAlterar.filme = filme
+        ingressoAlterar.data = data
+        ingressoAlterar.horario = horario
+        ingressoAlterar.sala = sala
+        ingressoAlterar.disponivel = disponivel
+
+        await ingressoAlterar.save()
+
+        return ingressoAlterar
     }
-        
 
-    ingressoAlterar.filme = filme
-    ingressoAlterar.data = data
-    ingressoAlterar.horario = horario
-    ingressoAlterar.sala = sala
-    ingressoAlterar.disponivel = disponivel
-
-    await ingressoAlterar.save()
-
-    return ingressoAlterar
-    }
-
-async Delete(id) {
+    async Delete(id) {
         const ingressoDeletar = await ingresso.findByPk(id)
 
-        if(!ingressoDeletar){
+        if (!ingressoDeletar) {
             throw new Error("ingresso não encontrado")
         }
 

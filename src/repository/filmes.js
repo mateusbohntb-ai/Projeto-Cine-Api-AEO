@@ -18,18 +18,18 @@ class RepositoryFilmes {
     }
 
     async Update(id, titulo, horario, dia) {
-        const filmeAlterar = await Filmes.findByPk(id)
+        const update = await Filmes.findByPk(id)
 
-        if(!filmeAlterar) {
+        if(!update) {
             throw new Error("Filme não encontrado!")
         }
 
-        filmeAlterar.titulo = titulo
-        filmeAlterar.horario = horario
-        filmeAlterar.dia = dia
+        update.titulo = titulo
+        update.horario = horario
+        update.dia = dia
 
-        await filmeAlterar.save()
-        return filmeAlterar
+        await update.save()
+        return update
     }
 
     async Delete(id) {

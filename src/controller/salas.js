@@ -1,7 +1,7 @@
 import ServiceSalas from '../service/salas.js'
 
 class ControllerSalas {
-
+// Todo e qualquer função deve ser igual e tambem ter o mesmo nome, como Salas e salas, deixar com um padrão, para não dar erro
     async Buscar(_, res) {
         try {
             const salas = await ServiceSalas.Buscar()
