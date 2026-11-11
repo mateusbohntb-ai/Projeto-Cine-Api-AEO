@@ -15,7 +15,7 @@ class Sessao {
                 type: database.db.Sequelize.INTEGER,
             },
             dia: {
-                type: database.db.Sequelize.INTEGER,
+                type: database.db.Sequelize.STRING,
             },
             horario: {
                 type: database.db.Sequelize.STRING,

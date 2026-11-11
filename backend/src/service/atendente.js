@@ -1,20 +1,18 @@
 import jwt from "jsonwebtoken"
-
 import RepositoryAtendente from "../repository/atendente.js"
-
 import bcrypt from "bcrypt"
+
+const segredo = 'cineapi123'
 
 class ServiceAtendente {
 
-   async Buscar() {
-    const dados = await RepositoryAtendente.FindAll()
-    return {dados}
+    async Buscar() {
+        const dados = await RepositoryAtendente.FindAll()
+        return { dados }
     }
 
-
-  async  Detalhe(id) {
-
-         if (!id) {
+    async Detalhe(id) {
+        if (!id) {
             throw new Error("Favor informar o ID")
         }
 
@@ -25,21 +23,20 @@ class ServiceAtendente {
         }
         return buscaratendente
     }
-  
- async    Login() {
 
-            if(!email || !senha) {
+    async Login(email, senha) {
+        if (!email || !senha) {
             throw new Error("Email ou senha inválido")
         }
 
-        const usuario = await RepositoryUsuario.FindByEmail(email)
+        const usuario = await RepositoryAtendente.FindByEmail(email)
 
-        if(!usuario) {
+        if (!usuario) {
             throw new Error("Email ou senha inválido")
         }
 
-        if(
-           !(await bcrypt.compare(String(senha), usuario.senha)) 
+        if (
+            !(await bcrypt.compare(String(senha), usuario.senha))
         ) {
             throw new Error("Email ou senha inválido")
         }
@@ -49,42 +46,32 @@ class ServiceAtendente {
             segredo,
             { expiresIn: 60 * 60 }
         )
-
     }
 
-  async   Criar(email,senha,telefone,setor) {
-
-        if (!email || !senha|| !telefone|| !setor) {
+    async Criar(email, senha, telefone, setor) {
+        if (!email || !senha || !telefone || !setor) {
             throw new Error("Favor informar todos os dados ")
-
         }
 
-     const senhaCriptografada = await bcrypt.hash(senha,12)
+        const senhaCriptografada = await bcrypt.hash(senha, 12)
 
-
-        const novousuario = await RepositoryAtendente.Create(email, senhaCriptografada)
+        const novousuario = await RepositoryAtendente.Create(email, senhaCriptografada, telefone, setor)
         return { novousuario }
     }
 
-
-  async  Alterar(id,email,senha,telefone,setor) {
-  if (!id ||!email || !senha|| !telefone|| !setor) {
-            throw new Error("Favor informar os dados");
+    async Alterar(id, email, senha, telefone, setor) {
+        if (!id || !email || !senha || !telefone || !setor) {
+            throw new Error("Favor informar os dados")
         }
 
-             const senhaCriptografada =!senha//ternario 
-             ?undefined
-             : await bcrypt.hash(senha,12)
+        const senhaCriptografada = await bcrypt.hash(senha, 12)
 
-
-        const usuarioalterado = await RepositoryAtendente.Update(id, email, senhaCriptografada )
+        const usuarioalterado = await RepositoryAtendente.Update(id, email, senhaCriptografada, telefone, setor)
 
         return usuarioalterado
     }
 
-
-  async  Deletar(id) {
-
+    async Deletar(id) {
         if (!id) {
             throw new Error("Favor informar todos os dados ")
         }
@@ -92,10 +79,7 @@ class ServiceAtendente {
         const Deletarusuario = await RepositoryAtendente.Delete(id)
 
         return Deletarusuario
-
     }
-
-
 }
 
 export default new ServiceAtendente()

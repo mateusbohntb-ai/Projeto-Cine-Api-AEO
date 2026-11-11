@@ -1,54 +1,38 @@
 import ServiceAtendente from "../service/atendente.js"
 
-
 class ControllerAtendente {
 
     async Buscar(_, res) {
-
         try {
             const aternder = await ServiceAtendente.Buscar()
             res.status(200).send({
                 mensagem: aternder
             })
-
         } catch (error) {
             res.status(500).send({
-                mensagem: error.menssage
+                mensagem: error.message
             })
         }
     }
 
-
-
-
     async Detalhe(req, res) {
-
         try {
-
             const id = req.params.id
             const aternder = await ServiceAtendente.Detalhe(id)
 
-            await res.status(200).send({
+            res.status(200).send({
                 mensagem: aternder
             })
-
         } catch (error) {
             res.status(500).send({
-                mensagem: error.mensage
+                mensagem: error.message
             })
         }
-
-
     }
 
-
-    async Login() {
-
+    async Login(req, res) {
         try {
-
-
             const { email, senha } = req.body
-
 
             const token = await ServiceAtendente.Login(email, senha)
 
@@ -56,19 +40,14 @@ class ControllerAtendente {
                 token
             })
         } catch (error) {
-
             res.status(500).send({
-                mensage: error.message
+                mensagem: error.message
             })
-
-
         }
     }
 
-    async Criar() {
-
+    async Criar(req, res) {
         try {
-
             const { email, senha, telefone, setor } = req.body
 
             await ServiceAtendente.Criar(email, senha, telefone, setor)
@@ -81,33 +60,27 @@ class ControllerAtendente {
                 mensagem: error.message
             })
         }
-
     }
 
-
-    async Alterar() {
+    async Alterar(req, res) {
         try {
             const { email, senha, telefone, setor } = req.body
-            const id = Number(req.session.id)
+            const id = req.params.id
 
             await ServiceAtendente.Alterar(id, email, senha, telefone, setor)
 
             res.status(201).send({
-                mensagem: "Alterado  com sucesso"
+                mensagem: "Alterado com sucesso"
             })
-
         } catch (error) {
             res.status(500).send({
-                mensagem: error.menssage
+                mensagem: error.message
             })
         }
     }
 
-
-    async Deletar() {
-
+    async Deletar(req, res) {
         try {
-
             const id = req.params.id
 
             await ServiceAtendente.Deletar(id)
@@ -120,10 +93,7 @@ class ControllerAtendente {
                 mensagem: error.message
             })
         }
-
     }
-
-
 }
 
 export default new ControllerAtendente()

@@ -1,31 +1,14 @@
-//Import express 
 import express from "express"
-//import middleware
 import authMiddleware from "../middleware/auth.js"
+import ControllerAtendente from "../controller/atendente.js"
 
-//Import do Controller atendente 
-import ControllerAtndente from "../controller/atendente.js"
-
-//constante router que será implementado as rotas do CRUD
 const router = express.Router()
 
-//Buscar todos do banco de dados 
-router.get("/Buscar", ControllerAtndente.Buscar)
-
-// Buscar um unico atendente/funcionario do cinema  
-router.get("/Detalhes/:id", ControllerAtndente.Detalhe)
-
-//Login do Funcionario 
-router.post("/Login",authMiddleware,  ControllerAtndente.Login)
-
-//Cadastrar um funcionario 
-router.post("/Criar", ControllerAtndente.Criar)
-
-//Alterar os dados de um funcionario 
-router.put("/Alterar/:id",authMiddleware,  ControllerAtndente.Alterar)
-
-//Deletar um Funcionario 
-router.delete("/Deletar/:id", authMiddleware, ControllerAtndente.Deletar)
-
+router.get("/Buscar", authMiddleware, ControllerAtendente.Buscar)
+router.get("/Detalhes/:id", authMiddleware, ControllerAtendente.Detalhe)
+router.post("/Login", ControllerAtendente.Login)
+router.post("/Criar", authMiddleware, ControllerAtendente.Criar)
+router.put("/Alterar/:id", authMiddleware, ControllerAtendente.Alterar)
+router.delete("/Deletar/:id", authMiddleware, ControllerAtendente.Deletar)
 
 export default router

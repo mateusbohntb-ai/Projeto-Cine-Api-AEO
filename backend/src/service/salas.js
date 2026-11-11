@@ -21,7 +21,7 @@ class ServiceSalas {
     }
 
     async Criar(filme, horario, dia, disponivel) {
-        if (!filme || !horario || !dia || !disponivel === undefined) {
+        if (!filme || !horario || !dia || disponivel === undefined) {
             throw new Error("Favor informar todos os dados")
         }
 
@@ -30,10 +30,9 @@ class ServiceSalas {
     }
 
     async Alterar(id, filme, horario, dia, disponivel) {
-        if (!id || !filme || !horario || !dia || !disponivel === undefined) {
-            throw new Error("Favor informar os dados");
+        if (!id || !filme || !horario || !dia || disponivel === undefined) {
+            throw new Error("Favor informar os dados")
         }
-
 
         const salasAlterado = await RepositorySalas.Update(id, filme, horario, dia, disponivel)
         return salasAlterado
@@ -47,7 +46,6 @@ class ServiceSalas {
         const salas = await RepositorySalas.Delete(id)
         return salas
     }
-
 }
 
 export default new ServiceSalas()

@@ -12,7 +12,7 @@ class ingresso {
                 type: database.db.Sequelize.STRING,
             },
             data: {
-                type: database.db.Sequelize.INTEGER,
+                type: database.db.Sequelize.STRING,
             },
             horario: {
                 type: database.db.Sequelize.STRING,

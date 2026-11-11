@@ -1,52 +1,52 @@
 import RepositoryIngresso from '../repository/ingressos.js'
 
 class ServiceIngresso {
-    async Criar(filme, data, horario, sala, disponivel){
-        if(!filme || !data || !horario || !sala || !disponivel) {
+    async Criar(filme, data, horario, sala, disponivel) {
+        if (!filme || !data || !horario || !sala || disponivel === undefined) {
             throw new Error("Favor informar todos os dados")
         }
 
-        const ingresso = await RepositoryIngresso.Create( filme, data, horario, sala, disponivel)
+        const ingresso = await RepositoryIngresso.Create(filme, data, horario, sala, disponivel)
 
         return ingresso
     }
 
-    async Buscar(){
+    async Buscar() {
         return RepositoryIngresso.find()
     }
 
-    async Detalhe(id){
-        if(!id) {
+    async Detalhe(id) {
+        if (!id) {
             throw new Error("Favor informar o ID")
         }
 
         const ingresso = await RepositoryIngresso.findById(id)
 
-        if(!ingresso) {
+        if (!ingresso) {
             throw new Error(`ID ${id} do ingresso não encontrada`)
         }
 
         return ingresso
     }
 
-    async Atualizar(filme, data, horario, sala, disponivel){
-        if (!filme || !data || !horario || !sala || !disponivel) {
+    async Atualizar(id, filme, data, horario, sala, disponivel) {
+        if (!id || !filme || !data || !horario || !sala || disponivel === undefined) {
             throw new Error("Favor informar todos os dados")
         }
 
-        const ingressoAtualizado = await RepositoryIngresso.Update(filme, data, horario, sala, disponivel)
+        const ingressoAtualizado = await RepositoryIngresso.Update(id, filme, data, horario, sala, disponivel)
 
         return ingressoAtualizado
     }
 
-    async Deletar(id){
-         if (!id) {
+    async Deletar(id) {
+        if (!id) {
             throw new Error("Favor informar o ID")
-         }
+        }
 
-         const ingresso = await RepositoryIngresso.Delete(id)
+        const ingresso = await RepositoryIngresso.Delete(id)
 
-         return ingresso
+        return ingresso
     }
 }
 
