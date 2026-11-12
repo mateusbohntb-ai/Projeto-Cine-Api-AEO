@@ -4,11 +4,11 @@ import ControllerAtendente from "../controller/atendente.js"
 
 const router = express.Router()
 
-router.get("/Buscar", authMiddleware, ControllerAtendente.Buscar)
-router.get("/Detalhes/:id", authMiddleware, ControllerAtendente.Detalhe)
-router.post("/Login", ControllerAtendente.Login)
-router.post("/Criar", authMiddleware, ControllerAtendente.Criar)
-router.put("/Alterar/:id", authMiddleware, ControllerAtendente.Alterar)
-router.delete("/Deletar/:id", authMiddleware, ControllerAtendente.Deletar)
+router.get("/buscar", authMiddleware, ControllerAtendente.Buscar)
+router.get("/detalhe/:id", authMiddleware, ControllerAtendente.Detalhe)
+router.post("/login", ControllerAtendente.Login)
+router.post("/criar", authMiddleware, ControllerAtendente.Criar)
+router.put("/alterar/:id", authMiddleware, ControllerAtendente.Alterar)
+router.delete("/deletar/:id", authMiddleware, ControllerAtendente.Deletar)
 
 export default router
