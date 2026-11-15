@@ -3,97 +3,177 @@ import { useNavigate } from 'react-router-dom'
 import { buscarRecurso, criarRecurso, alterarRecurso, deletarRecurso } from '../../api/recursos'
 import './style.css'
 
-const recursos = {
-    filmes: {
-        nome: 'Filmes',
-        rota: 'filmes',
-        chaveLista: 'filmes',
-        rotaAlterar: 'alterar',
-        campos: [
-            { nome: 'titulo', label: 'Título', tipo: 'text' },
-            { nome: 'horario', label: 'Horário', tipo: 'text' },
-            { nome: 'dia', label: 'Dia', tipo: 'text' }
-        ]
-    },
-    salas: {
-        nome: 'Salas',
-        rota: 'salas',
-        chaveLista: 'salas',
-        rotaAlterar: 'alterar',
-        campos: [
-            { nome: 'filme', label: 'Filme', tipo: 'text' },
-            { nome: 'horario', label: 'Horário', tipo: 'text' },
-            { nome: 'dia', label: 'Dia', tipo: 'text' },
-            { nome: 'disponivel', label: 'Disponível', tipo: 'checkbox' }
-        ]
-    },
-    sessoes: {
-        nome: 'Sessões',
-        rota: 'sessoes',
-        chaveLista: 'mensagem',
-        rotaAlterar: 'alterar',
-        campos: [
-            { nome: 'titulo', label: 'Título', tipo: 'text' },
-            { nome: 'sala', label: 'Sala', tipo: 'number' },
-            { nome: 'dia', label: 'Dia', tipo: 'text' },
-            { nome: 'horario', label: 'Horário', tipo: 'text' }
-        ]
-    },
-    ingressos: {
-        nome: 'Ingressos',
-        rota: 'ingressos',
-        chaveLista: 'mensage',
-        rotaAlterar: 'atualizar',
-        campos: [
-            { nome: 'filme', label: 'Filme', tipo: 'text' },
-            { nome: 'data', label: 'Data', tipo: 'text' },
-            { nome: 'horario', label: 'Horário', tipo: 'text' },
-            { nome: 'sala', label: 'Sala', tipo: 'number' },
-            { nome: 'disponivel', label: 'Disponível', tipo: 'checkbox' }
-        ]
-    }
-}
-
-function formVazio(config) {
-    const form = {}
-
-    for (let ok = 0; ok < config.campos.length; ok++) {
-        const campo = config.campos[ok]
-        form[campo.nome] = campo.tipo === 'checkbox' ? false : ''
-    }
-
-    return form
+const rotulos = {
+    titulo: 'Título',
+    filme: 'Filme',
+    data: 'Data',
+    horario: 'Horário',
+    dia: 'Dia',
+    sala: 'Sala',
+    disponivel: 'Disponível'
 }
 
 export default function Atendente() {
     const navigate = useNavigate()
     const [aba, setAba] = useState('filmes')
     const [lista, setLista] = useState([])
-    const [form, setForm] = useState(formVazio(recursos.filmes))
     const [editandoId, setEditandoId] = useState(null)
     const [mensagem, setMensagem] = useState('')
 
-    const config = recursos[aba]
+    const [titulo, setTitulo] = useState('')
+    const [filme, setFilme] = useState('')
+    const [data, setData] = useState('')
+    const [horario, setHorario] = useState('')
+    const [dia, setDia] = useState('')
+    const [sala, setSala] = useState('')
+    const [disponivel, setDisponivel] = useState(false)
 
-    const tratarErro = (error, textoPadrao) => {
-        console.log(error)
-
-        if (error.response && error.response.status === 403) {
-            localStorage.removeItem('token')
-            navigate('/login')
-            return
+    function nomesDaAba(nomeAba) {
+        if (nomeAba === 'filmes') {
+            return ['titulo', 'horario', 'dia']
         }
 
-        const resposta = error.response ? error.response.data : null
-        const texto = resposta ? (resposta.message || resposta.mensagem) : null
+        if (nomeAba === 'salas') {
+            return ['filme', 'horario', 'dia', 'disponivel']
+        }
 
-        setMensagem(texto || textoPadrao)
+        if (nomeAba === 'sessoes') {
+            return ['titulo', 'sala', 'dia', 'horario']
+        }
+
+        return ['filme', 'data', 'horario', 'sala', 'disponivel']
     }
 
-    const carregar = async (chave) => {
+    function chaveDaLista(nomeAba) {
+        if (nomeAba === 'sessoes') {
+            return 'mensagem'
+        }
+
+        if (nomeAba === 'ingressos') {
+            return 'mensage'
+        }
+
+        return nomeAba
+    }
+
+    function rotaAlterar() {
+        if (aba === 'ingressos') {
+            return 'atualizar'
+        }
+
+        return 'alterar'
+    }
+
+    function dadosDoForm() {
+        if (aba === 'filmes') {
+            return { titulo, horario, dia }
+        }
+
+        if (aba === 'salas') {
+            return { filme, horario, dia, disponivel }
+        }
+
+        if (aba === 'sessoes') {
+            return { titulo, sala, dia, horario }
+        }
+
+        return { filme, data, horario, sala, disponivel }
+    }
+
+    function valorDe(nome) {
+        if (nome === 'titulo') {
+            return titulo
+        }
+
+        if (nome === 'filme') {
+            return filme
+        }
+
+        if (nome === 'data') {
+            return data
+        }
+
+        if (nome === 'horario') {
+            return horario
+        }
+
+        if (nome === 'dia') {
+            return dia
+        }
+
+        if (nome === 'sala') {
+            return sala
+        }
+
+        return disponivel
+    }
+
+    function mudar(nome, valor) {
+        if (nome === 'titulo') {
+            setTitulo(valor)
+        }
+
+        if (nome === 'filme') {
+            setFilme(valor)
+        }
+
+        if (nome === 'data') {
+            setData(valor)
+        }
+
+        if (nome === 'horario') {
+            setHorario(valor)
+        }
+
+        if (nome === 'dia') {
+            setDia(valor)
+        }
+
+        if (nome === 'sala') {
+            setSala(valor)
+        }
+
+        if (nome === 'disponivel') {
+            setDisponivel(valor)
+        }
+    }
+
+    function tipoDe(nome) {
+        if (nome === 'sala') {
+            return 'number'
+        }
+
+        return 'text'
+    }
+
+    function textoDe(item, nome) {
+        if (nome === 'disponivel') {
+            if (item.disponivel) {
+                return 'Sim'
+            }
+
+            return 'Não'
+        }
+
+        return item[nome]
+    }
+
+    function tratarErro(error, texto) {
+        if (error.response) {
+            if (error.response.status === 403) {
+                localStorage.removeItem('token')
+                navigate('/login')
+                return
+            }
+        }
+
+        setMensagem(texto)
+    }
+
+    const carregar = async (nomeAba) => {
         try {
-            const dados = await buscarRecurso(recursos[chave].rota)
-            setLista(dados[recursos[chave].chaveLista] || [])
+            const response = await buscarRecurso(nomeAba)
+            setLista(response[chaveDaLista(nomeAba)] || [])
         } catch (error) {
             tratarErro(error, 'Erro ao carregar')
         }
@@ -103,21 +183,21 @@ export default function Atendente() {
         carregar(aba)
     }, [aba])
 
-    const handleAba = (chave) => {
-        setAba(chave)
-        setForm(formVazio(recursos[chave]))
-        setEditandoId(null)
-        setMensagem('')
-    }
-
-    const handleChange = (campo, e) => {
-        const valor = campo.tipo === 'checkbox' ? e.target.checked : e.target.value
-        setForm({ ...form, [campo.nome]: valor })
-    }
-
     const limpar = () => {
-        setForm(formVazio(config))
+        setTitulo('')
+        setFilme('')
+        setData('')
+        setHorario('')
+        setDia('')
+        setSala('')
+        setDisponivel(false)
         setEditandoId(null)
+    }
+
+    const handleAba = (nomeAba) => {
+        setAba(nomeAba)
+        limpar()
+        setMensagem('')
     }
 
     const handleSubmit = async (e) => {
@@ -125,10 +205,10 @@ export default function Atendente() {
 
         try {
             if (editandoId) {
-                await alterarRecurso(config.rota, config.rotaAlterar, editandoId, form)
+                await alterarRecurso(aba, rotaAlterar(), editandoId, dadosDoForm())
                 setMensagem('Alterado com sucesso')
             } else {
-                await criarRecurso(config.rota, form)
+                await criarRecurso(aba, dadosDoForm())
                 setMensagem('Cadastrado com sucesso')
             }
 
@@ -140,20 +220,19 @@ export default function Atendente() {
     }
 
     const handleEditar = (item) => {
-        const novo = {}
-
-        for (let ok = 0; ok < config.campos.length; ok++) {
-            const nome = config.campos[ok].nome
-            novo[nome] = item[nome]
-        }
-
-        setForm(novo)
+        setTitulo(item.titulo || '')
+        setFilme(item.filme || '')
+        setData(item.data || '')
+        setHorario(item.horario || '')
+        setDia(item.dia || '')
+        setSala(item.sala || '')
+        setDisponivel(item.disponivel || false)
         setEditandoId(item.id)
     }
 
     const handleDeletar = async (id) => {
         try {
-            await deletarRecurso(config.rota, id)
+            await deletarRecurso(aba, id)
             setMensagem('Deletado com sucesso')
             carregar(aba)
         } catch (error) {
@@ -161,57 +240,98 @@ export default function Atendente() {
         }
     }
 
+    function classe(nomeAba) {
+        if (aba === nomeAba) {
+            return 'active'
+        }
+
+        return ''
+    }
+
+    function celulasDe(item) {
+        const celulas = []
+        const nomes = nomesDaAba(aba)
+
+        for (const ok in nomes) {
+            celulas.push(<td key={nomes[ok]}>{textoDe(item, nomes[ok])}</td>)
+        }
+
+        return celulas
+    }
+
+    const nomes = nomesDaAba(aba)
+    const campos = []
+    const cabecalhos = []
+    const linhas = []
+
+    for (const ok in nomes) {
+        const nome = nomes[ok]
+
+        cabecalhos.push(<th key={nome}>{rotulos[nome]}</th>)
+
+        if (nome === 'disponivel') {
+            campos.push(
+                <div className="input-group" key={nome}>
+                    <label htmlFor={nome}>{rotulos[nome]}:</label>
+                    <input
+                        type="checkbox"
+                        id={nome}
+                        checked={valorDe(nome)}
+                        onChange={(e) => mudar(nome, e.target.checked)}
+                    />
+                </div>
+            )
+        } else {
+            campos.push(
+                <div className="input-group" key={nome}>
+                    <label htmlFor={nome}>{rotulos[nome]}:</label>
+                    <input
+                        type={tipoDe(nome)}
+                        id={nome}
+                        required
+                        value={valorDe(nome)}
+                        onChange={(e) => mudar(nome, e.target.value)}
+                    />
+                </div>
+            )
+        }
+    }
+
+    for (const ok in lista) {
+        const item = lista[ok]
+
+        linhas.push(
+            <tr key={item.id}>
+                <td>{item.id}</td>
+                {celulasDe(item)}
+                <td>
+                    <button onClick={() => handleEditar(item)}>Editar</button>
+                    <button onClick={() => handleDeletar(item.id)}>Excluir</button>
+                </td>
+            </tr>
+        )
+    }
+
     return (
         <main className="atendente">
             <h2 className="section-title">Painel do Atendente</h2>
 
             <div className="abas">
-                {Object.keys(recursos).map((chave) => (
-                    <button
-                        key={chave}
-                        className={chave === aba ? 'active' : ''}
-                        onClick={() => handleAba(chave)}
-                    >
-                        {recursos[chave].nome}
-                    </button>
-                ))}
+                <button className={classe('filmes')} onClick={() => handleAba('filmes')}>Filmes</button>
+                <button className={classe('salas')} onClick={() => handleAba('salas')}>Salas</button>
+                <button className={classe('sessoes')} onClick={() => handleAba('sessoes')}>Sessões</button>
+                <button className={classe('ingressos')} onClick={() => handleAba('ingressos')}>Ingressos</button>
             </div>
 
             <form className="form-recurso" onSubmit={handleSubmit}>
-                <h3>{editandoId ? 'Editar ' : 'Novo '}{config.nome}</h3>
+                <h3>{aba}</h3>
+                
+                
 
-                {config.campos.map((campo) => (
-                    <div className="input-group" key={campo.nome}>
-                        <label htmlFor={campo.nome}>{campo.label}:</label>
+                {campos}
 
-                        {campo.tipo === 'checkbox' ? (
-                            <input
-                                type="checkbox"
-                                id={campo.nome}
-                                checked={form[campo.nome]}
-                                onChange={(e) => handleChange(campo, e)}
-                            />
-                        ) : (
-                            <input
-                                type={campo.tipo}
-                                id={campo.nome}
-                                required
-                                value={form[campo.nome]}
-                                onChange={(e) => handleChange(campo, e)}
-                            />
-                        )}
-                    </div>
-                ))}
-
-                <button className="button" type="submit">
-                    {editandoId ? 'Salvar' : 'Cadastrar'}
-                </button>
-
-                {editandoId && (
-                    <button className="button cancelar" type="button" onClick={limpar}>
-                        Cancelar
-                    </button>
-                )}
+                <button className="button" type="submit">Salvar</button>
+                <button className="button cancelar" type="button" onClick={limpar}>Cancelar</button>
             </form>
 
             <p className="mensagem">{mensagem}</p>
@@ -220,29 +340,12 @@ export default function Atendente() {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        {config.campos.map((campo) => (
-                            <th key={campo.nome}>{campo.label}</th>
-                        ))}
+                        {cabecalhos}
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {lista.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item.id}</td>
-                            {config.campos.map((campo) => (
-                                <td key={campo.nome}>
-                                    {campo.tipo === 'checkbox'
-                                        ? (item[campo.nome] ? 'Sim' : 'Não')
-                                        : item[campo.nome]}
-                                </td>
-                            ))}
-                            <td>
-                                <button onClick={() => handleEditar(item)}>Editar</button>
-                                <button onClick={() => handleDeletar(item.id)}>Excluir</button>
-                            </td>
-                        </tr>
-                    ))}
+                    {linhas}
                 </tbody>
             </table>
         </main>

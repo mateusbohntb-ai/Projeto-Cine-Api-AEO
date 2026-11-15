@@ -2,9 +2,9 @@ import './style.css'
 
 function Footer() {
     return (
-        <>
-            Footer
-        </>
+        <footer>
+            © 2026 Cine API - Todos os direitos reservados.
+        </footer>
     )
 }
 

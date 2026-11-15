@@ -28,6 +28,8 @@ async function criarAtendenteFixo() {
   }
 }
 
+//{ "email": "admin@cineapi.com", "senha": "admin123" }
+
 database.db
   .sync({ force: false })
   .then(async () => {
